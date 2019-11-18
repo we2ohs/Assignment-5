@@ -21,7 +21,8 @@ public:
     Shape();
     //Destructor
     ~Shape();
-    virtual void print()=0; 
+    virtual void print()=0;
+    //Just Testing
 };
 #endif /* SHAPE_H */
 
