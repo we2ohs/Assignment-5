@@ -17,6 +17,7 @@ using namespace std;
 //Constructors
 Line::Line() 
 {
+    
 }
 
 Line::Line(Point i,Point j)
@@ -28,24 +29,32 @@ Line::Line(Point i,Point j)
 Line::~Line()
 {
 }
+
+
 //Set Functions
 void Line::setp1(Point i)
 {
     p1=i;
 }
+
 void Line::setp2(Point j)
 {
     p2=j;
 }
+
+
 //Get Functions
 Point Line::getp1() const
 {
     return p1;
 }
+
 Point Line::getp2() const
 {
     return p2;
 }
+
+
 //Print Function
 void Line::print()
 {

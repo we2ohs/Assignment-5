@@ -17,23 +17,28 @@
 #include "Point.h"
 class Circle:public Shape
 {
+private:
+    Point p;
+    double radius;
+    
 public:
     //Constructors
     Circle();
     Circle(Point,double);
+    
     //Destructor
     ~Circle();
+    
     //Set Functions
     void setp(Point);
     void setradius(double);
+    
     //Get Functions
     Point getp() const;
     double getradius() const;
+    
     //Print Function
     void print();
-private:
-    Point p;
-    double radius;
 };
 #endif /* CIRCLE_H */
 

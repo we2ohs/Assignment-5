@@ -19,8 +19,10 @@ class Shape
 public:
     //Constructor
     Shape();
+    
     //Destructor
     ~Shape();
+    
     virtual void print()=0;
 };
 #endif /* SHAPE_H */

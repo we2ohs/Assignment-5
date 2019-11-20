@@ -24,13 +24,16 @@ int main()
     Point p2(9.3,4.7);
     Point p3(5.8,7.3);
     Point p(2.5,8.4);
+    
     //Line Object
     Line line(p1,p2);
+    
     //Triangle Object
     Triangle triangle(p1,p2,p3);
+    
     //Circle Object
     Circle circle(p,2.9);
-    //Just testing
+    
     return 0;
 }
 

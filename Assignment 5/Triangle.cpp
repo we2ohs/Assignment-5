@@ -17,6 +17,7 @@ using namespace std;
 //Constructors
 Triangle::Triangle() 
 {
+    
 }
 
 Triangle::Triangle(Point i,Point j,Point k) 
@@ -25,36 +26,45 @@ Triangle::Triangle(Point i,Point j,Point k)
     p2=j;
     p3=k;
 }
+
 //Destructor
 Triangle::~Triangle() 
 {
 }
+
 //Set Functions
 void Triangle::setp1(Point i)
 {
     p1=i;
 }
+
 void Triangle::setp2(Point j)
 {
     p2=j;
 }
+
 void Triangle::setp3(Point k)
 {
     p3=k;
 }
+
+
 //Get Functions
 Point Triangle::getp1() const
 {
     return p1;
 }
+
 Point Triangle::getp2() const
 {
     return p2;
 }
+
 Point Triangle::getp3() const
 {
     return p3;
 }
+
 //Print Function
 void Triangle::print()
 {

@@ -12,12 +12,16 @@
  */
 
 #include "Shape.h"
+
 //Constructor
 Shape::Shape() 
 {
+    
 }
+
 //Destructor
 Shape::~Shape() 
 {
+    
 }
 

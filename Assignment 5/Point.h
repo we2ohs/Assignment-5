@@ -16,23 +16,28 @@
 #include "Shape.h"
 class Point:public Shape
 {
+private:
+    double x_coor;
+    double y_coor;
+    
 public:
     //Constructors
     Point();
     Point(double, double);
+    
     //Destructor
     ~Point();
+    
     //Set Functions
     void setx(double);
     void sety(double);
+    
     //Get Functions
     double getx() const;
     double gety() const;
+    
     //Print Function
     void print();
-private:
-    double x_coor;
-    double y_coor;
 };
 #endif /* POINT_H */
 

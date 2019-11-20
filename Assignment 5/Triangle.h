@@ -17,26 +17,32 @@
 #include "Point.h"
 class Triangle:public Shape
 {
-public:
-    //Constructors
-    Triangle();
-    Triangle(Point,Point,Point);
-    //Destructor
-    ~Triangle();
-    //Set Functions
-    void setp1(Point);
-    void setp2(Point);
-    void setp3(Point);
-    //Get Functions
-    Point getp1() const;
-    Point getp2() const;
-    Point getp3() const;
-    //Print Function
-    void print();
 private:
     Point p1;
     Point p2;
     Point p3;
+    
+public:
+    //Constructors
+    Triangle();
+    Triangle(Point,Point,Point);
+    
+    //Destructor
+    ~Triangle();
+    
+    //Set Functions
+    void setp1(Point);
+    void setp2(Point);
+    void setp3(Point);
+    
+    //Get Functions
+    Point getp1() const;
+    Point getp2() const;
+    Point getp3() const;
+    
+    //Print Function
+    void print();
+
 };
 #endif /* TRIANGLE_H */
 

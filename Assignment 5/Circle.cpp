@@ -17,6 +17,7 @@ using namespace std;
 //Constructors
 Circle::Circle() 
 {
+    
 }
 Circle::Circle(Point i, double r) 
 {
@@ -26,24 +27,30 @@ Circle::Circle(Point i, double r)
 //Destructor
 Circle::~Circle() 
 {
+    
 }
 //Set Functions
 void Circle::setp(Point i)
 {
     p=i;
 }
+
 void Circle::setradius(double r)
 {
     radius=r;
 }
+
+//Get Functions
 Point Circle::getp() const
 {
     return p;
 }
+
 double Circle::getradius() const
 {
     return radius;
 }
+
 //Print Function
 void Circle::print()
 {

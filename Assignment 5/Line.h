@@ -17,23 +17,28 @@
 #include "Point.h"
 class Line:public Shape
 {
+private:
+    Point p1;
+    Point p2;
+    
 public:
     //Constructors
     Line();
     Line(Point,Point);
+    
     //Destructor
     ~Line();
+    
     //Set Functions
     void setp1(Point);
     void setp2(Point);
+    
     //Get Functions
     Point getp1() const;
     Point getp2() const;
+    
     //Print Function
     void print();
-private:
-    Point p1;
-    Point p2;
 };
 #endif /* LINE_H */
 
