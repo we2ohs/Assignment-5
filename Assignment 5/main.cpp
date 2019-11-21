@@ -20,8 +20,13 @@
 #include <fstream>
 #include <iomanip>
 using namespace std;
+
+
+
 int main()
 {
+    
+//======================== Part i ========================
     //Point Objects
     Point p1(4.3,3.2);
     Point p2(9.3,4.7);
@@ -36,12 +41,13 @@ int main()
     
     //Circle Object
     Circle circle(p,2.9);
+
     
+//======================== Part ii ========================
     //Sequential Access File object
-    ofstream fileout;
-    fileout.open("objects.txt");
+    fstream file("objects.txt", fstream::in|fstream::out|fstream::app);
     
-    if(!fileout)
+    if(!file)
     {
         cout<<"File could not be opened"<<endl;
         exit(1);
@@ -62,22 +68,49 @@ int main()
     }
     
     
-    fileout<<classname[0]<<" "<<p1.getx()<<" "<<p1.gety()<<endl;
-    fileout<<classname[1]<<" "<<p2.gety()<<" "<<p2.gety()<<endl;
-    fileout<<classname[2]<<" "<<line.getp1().getx()<<" "<<line.getp1().gety()<<" "<<line.getp2().getx()<<" "<<line.getp2().gety()<<endl;
-    fileout<<classname[3]<<" "<<p3.getx()<<" "<<p3.gety()<<endl;
-    fileout<<classname[4]<<" "<<triangle.getp1().getx()<<" "<<triangle.getp1().gety()<<" "<<triangle.getp2().getx()<<" "<<triangle.getp2().gety()<<" "<<triangle.getp3().getx()<<" "<<triangle.getp3().gety()<<endl;
-    fileout<<classname[5]<<" "<<p.getx()<<" "<<p.gety()<<endl;
-    fileout<<classname[6]<<" "<<circle.getp().getx()<<" "<<circle.getp().gety()<<" "<<circle.getradius()<<endl;
+    file<<classname[0]<<" "<<p1.getx()<<" "<<p1.gety()<<endl;
+    file<<classname[1]<<" "<<p2.gety()<<" "<<p2.gety()<<endl;
+    file<<classname[2]<<" "<<line.getp1().getx()<<" "<<line.getp1().gety()<<" "<<line.getp2().getx()<<" "<<line.getp2().gety()<<endl;
+    file<<classname[3]<<" "<<p3.getx()<<" "<<p3.gety()<<endl;
+    file<<classname[4]<<" "<<triangle.getp1().getx()<<" "<<triangle.getp1().gety()<<" "<<triangle.getp2().getx()<<" "<<triangle.getp2().gety()<<" "<<triangle.getp3().getx()<<" "<<triangle.getp3().gety()<<endl;
+    file<<classname[5]<<" "<<p.getx()<<" "<<p.gety()<<endl;
+    file<<classname[6]<<" "<<circle.getp().getx()<<" "<<circle.getp().gety()<<" "<<circle.getradius()<<endl;
 
-    fileout.close();
+    file.close();
+ 
     
+//======================== Part iii ========================
     Shape* shape[7];
     
     for(int i = 0 ; i<7; i++)
     {
         shape[i]=nullptr;
     }
+ 
+    
+//======================== Part iv ========================
+    file.open("objects.txt");
+    string data[30];
+    double temp;
+    
+    
+    while(!file.eof())
+    {
+        for(int i = 0; i<1; i++)
+        {
+            
+        
+        }
+        
+    }
+    
+    
+ 
+    
+    
+    file.close();
+    
+    
     
     
     return 0;
