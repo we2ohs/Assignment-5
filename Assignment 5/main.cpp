@@ -70,9 +70,15 @@ int main()
     fileout<<classname[5]<<" "<<p.getx()<<" "<<p.gety()<<endl;
     fileout<<classname[6]<<" "<<circle.getp().getx()<<" "<<circle.getp().gety()<<" "<<circle.getradius()<<endl;
 
-    
-    
     fileout.close();
+    
+    Shape* shape[7];
+    
+    for(int i = 0 ; i<7; i++)
+    {
+        shape[i]=nullptr;
+    }
+    
     
     return 0;
 }
