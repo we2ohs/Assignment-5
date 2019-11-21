@@ -91,7 +91,7 @@ int main()
 //======================== Part iv ========================
     file.open("objects.txt");
     string data[30];
-    double temp;
+    double temp=0.0;
     
     
     while(!file.eof())
