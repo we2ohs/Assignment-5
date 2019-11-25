@@ -65,6 +65,14 @@ Point Triangle::getp3() const
     return p3;
 }
 
+//Overloaded Assignment Operator
+void Triangle::operator=(Triangle a)
+{
+    setp1(a.getp1());
+    setp2(a.getp2());
+    setp3(a.getp3());
+}
+
 //Print Function
 void Triangle::print()
 {

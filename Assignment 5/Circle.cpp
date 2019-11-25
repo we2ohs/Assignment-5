@@ -51,6 +51,13 @@ double Circle::getradius() const
     return radius;
 }
 
+//Overloaded Assignment Operator
+void Circle::operator=(Circle a)
+{
+    setp(a.getp());
+    setradius(a.getradius());
+}
+
 //Print Function
 void Circle::print()
 {

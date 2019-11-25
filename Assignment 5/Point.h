@@ -36,6 +36,9 @@ public:
     double getx() const;
     double gety() const;
     
+    //Overloaded Assignment Operator
+    Point* operator=(Point a);
+    
     //Print Function
     void print();
 };

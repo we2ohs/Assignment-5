@@ -40,6 +40,9 @@ public:
     Point getp2() const;
     Point getp3() const;
     
+    //Overloaded Assignment Operator
+    void operator=(Triangle a);
+    
     //Print Function
     void print();
 

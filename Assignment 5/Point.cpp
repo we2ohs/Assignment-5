@@ -54,6 +54,15 @@ double Point::gety() const
     return y_coor;
 }
 
+//Overloaded Assignment Operator
+Point* Point::operator=(Point a)
+{
+    setx(a.getx());
+    sety(a.gety());
+    return this;
+}
+
+
 //Print Function
 void Point::print()
 {

@@ -54,6 +54,12 @@ Point Line::getp2() const
     return p2;
 }
 
+//Overloaded Assignment Operator
+void Line::operator=(Line a)
+{
+    setp1(a.getp1());
+    setp2(a.getp2());
+}
 
 //Print Function
 void Line::print()
