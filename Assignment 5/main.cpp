@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   main.cpp
- * Author: nikol
- *
- * Created on November 17, 2019, 5:41 PM
- */
+//  Assignment 5
+//  Student Name : Ahmed Ali
+//  Student ID   : 40102454
+//  Student Name : Nikolaos Chaskis
+//  Student ID   : 40092571
+//  main.cpp
 
 #include "Point.h"
 #include "Line.h"
@@ -21,7 +15,7 @@
 #include <iomanip>
 using namespace std;
 
-
+const size_t MAX_SHAPES=100;
 
 template <class T> void inputToFile(T object, ofstream& file);
 template <> void inputToFile<Point>(Point object, ofstream& file);
@@ -58,123 +52,116 @@ int main()
     //Sequential Access File object
     ofstream writeToFile;
     ifstream readFromFile;
-    try
+    writeToFile.open("objects.txt");
+    
+    inputToFile<Point>(p1, writeToFile);
+    inputToFile<Point>(p2, writeToFile);
+    inputToFile<Line>(line, writeToFile);
+    inputToFile<Point>(p3, writeToFile);
+    inputToFile<Triangle>(triangle, writeToFile);
+    inputToFile<Point>(p, writeToFile);
+    inputToFile<Circle>(circle, writeToFile);
+    writeToFile.close();
+    
+    
+    
+    //======================== Part iii ========================
+    Shape* shape[MAX_SHAPES];
+    
+    for(int i = 0; i<MAX_SHAPES; i++)
     {
-        writeToFile.open("objects.txt");
-        writeToFile.exceptions (ofstream::failbit | ofstream::badbit );
-        
-        while(writeToFile)
+        shape[i]=nullptr;
+    }
+    
+    //======================== Part iv & v ========================
+    readFromFile.open("objects.txt");
+    string temp[100];
+    double tempNumber[100];
+    
+    for(int j = 0; j<MAX_SHAPES ; j++)
+    {
+        if(shape[j] == nullptr)
         {
-            inputToFile<Point>(p1, writeToFile);
-            inputToFile<Point>(p2, writeToFile);
-            inputToFile<Line>(line, writeToFile);
-            inputToFile<Point>(p3, writeToFile);
-            inputToFile<Triangle>(triangle, writeToFile);
-            inputToFile<Point>(p, writeToFile);
-            inputToFile<Circle>(circle, writeToFile);
-            writeToFile.close();
-        }
-        
-        
-        //======================== Part iii ========================
-        Shape* shape[7];
-        
-        for(int i = 0; i<7; i++)
-        {
-            shape[i]=nullptr;
-        }
-        
-        //======================== Part iv & v ========================
-        readFromFile.open("objects.txt");
-        readFromFile.exceptions (ifstream::failbit | ifstream::badbit );
-        
-        string temp[100];
-        double tempNumber[100];
-        
-        while(readFromFile)
-        {
-            for(int i = 0; i<100;i++)
+            if(!readFromFile.eof())
             {
-                readFromFile>>temp[i];
-            }
-            for(int i = 0; i<100; i++)
-            {
-                if(temp[i] != "")
+                for(int i = 0; i<100;i++)
                 {
-                    
-                    if(temp[i]=="Point")
+                    readFromFile>>temp[i];
+                }
+                for(int i = 0; i<100; i++)
+                {
+                    if(temp[i] != "")
                     {
-                        tempNumber[0]=atof(temp[i+1].c_str());
-                        tempNumber[1]=atof(temp[i+2].c_str());
                         
-                        Point* newpoint = new Point(tempNumber[0],tempNumber[1]);
-                        cout<<"------ Point ------"<<endl;
-                        newpoint->print();
-                        cout<<endl;
-                        delete newpoint;
+                        if(temp[i]=="Point")
+                        {
+                            tempNumber[0]=atof(temp[i+1].c_str());
+                            tempNumber[1]=atof(temp[i+2].c_str());
+                            
+                            shape[j]= new Point(tempNumber[0],tempNumber[1]);
+                            cout<<"------ Point ------"<<endl;
+                            shape[j]->print();
+                            cout<<endl;
+                            
+                        }
+                        else if(temp[i]=="Line")
+                        {
+                            tempNumber[0]=atof(temp[i+1].c_str());
+                            tempNumber[1]=atof(temp[i+2].c_str());
+                            tempNumber[2]=atof(temp[i+3].c_str());
+                            tempNumber[3]=atof(temp[i+4].c_str());
+                            
+                            shape[j] = new Line(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]));
+                            cout<<"------ Line ------"<<endl;
+                            shape[j]->print();
+                            cout<<endl;
+                            
+                        }
+                        else if(temp[i]=="Triangle")
+                        {
+                            tempNumber[0]=atof(temp[i+1].c_str());
+                            tempNumber[1]=atof(temp[i+2].c_str());
+                            tempNumber[2]=atof(temp[i+3].c_str());
+                            tempNumber[3]=atof(temp[i+4].c_str());
+                            tempNumber[4]=atof(temp[i+5].c_str());
+                            tempNumber[5]=atof(temp[i+6].c_str());
+                            
+                            shape[j] = new Triangle(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]),Point(tempNumber[4],tempNumber[5]));
+                            cout<<"------ Triangle ------"<<endl;
+                            shape[j]->print();
+                            cout<<endl;
+                            
+                        }
+                        else if(temp[i]=="Circle")
+                        {
+                            tempNumber[0]=atof(temp[i+1].c_str());
+                            tempNumber[1]=atof(temp[i+2].c_str());
+                            tempNumber[2]=atof(temp[i+3].c_str());
+                            
+                            
+                            shape[j] = new Circle(Point(tempNumber[0],tempNumber[1]),tempNumber[2]);
+                            cout<<"------ Circle ------"<<endl;
+                            shape[j]->print();
+                            cout<<endl;
+                            
+                        }
                         
                     }
-                    else if(temp[i]=="Line")
-                    {
-                        tempNumber[0]=atof(temp[i+1].c_str());
-                        tempNumber[1]=atof(temp[i+2].c_str());
-                        tempNumber[2]=atof(temp[i+3].c_str());
-                        tempNumber[3]=atof(temp[i+4].c_str());
-                        
-                        Line* newLine = new Line(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]));
-                        cout<<"------ Line ------"<<endl;
-                        newLine->print();
-                        cout<<endl;
-                        
-                        delete newLine;
-                    }
-                    else if(temp[i]=="Triangle")
-                    {
-                        tempNumber[0]=atof(temp[i+1].c_str());
-                        tempNumber[1]=atof(temp[i+2].c_str());
-                        tempNumber[2]=atof(temp[i+3].c_str());
-                        tempNumber[3]=atof(temp[i+4].c_str());
-                        tempNumber[4]=atof(temp[i+5].c_str());
-                        tempNumber[5]=atof(temp[i+6].c_str());
-                        
-                        Triangle* newTriangle = new Triangle(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]),Point(tempNumber[4],tempNumber[5]));
-                        cout<<"------ Triangle ------"<<endl;
-                        newTriangle->print();
-                        cout<<endl;
-                        
-                        delete newTriangle;
-                    }
-                    else if(temp[i]=="Circle")
-                    {
-                        tempNumber[0]=atof(temp[i+1].c_str());
-                        tempNumber[1]=atof(temp[i+2].c_str());
-                        tempNumber[2]=atof(temp[i+3].c_str());
-                        
-                        
-                        Circle* newCircle = new Circle(Point(tempNumber[0],tempNumber[1]),tempNumber[2]);
-                        cout<<"------ Circle ------"<<endl;
-                        newCircle->print();
-                        cout<<endl;
-                        
-                        delete newCircle;
-                    }
-                    
                 }
             }
-            readFromFile.close();
         }
-        
-        
-        
     }
-    catch(exception const& error)
-    {
-        cout<<"EXCEPTION : "<<error.what()<<endl;
-        cout<<"File could not be created/read/written"<<endl;
-        writeToFile.clear();
-        readFromFile.clear();
-        exit(1);
-    }
+    
+    
+    
+    readFromFile.close();
+    
+    /* cout<<"EXCEPTION : "<<error.what()<<endl;
+     cout<<"File could not be created/read/written"<<endl;
+     writeToFile.clear();
+     readFromFile.clear();
+     exit(1);*/
+    
     
     
     
@@ -206,6 +193,7 @@ template<> void inputToFile<Point>(Point temppoint, ofstream& file)
     file<<classname<<" "<<temppoint.getx()<<" "<<temppoint.gety()<<endl;
     
 }
+
 template<> void inputToFile<Line>(Line templine, ofstream& file)
 {
     string classname;
@@ -214,6 +202,7 @@ template<> void inputToFile<Line>(Line templine, ofstream& file)
     file<<classname<<" "<<templine.getp1().getx()<<" "<<templine.getp1().gety()<<" "<<templine.getp2().getx()<<" "<<templine.getp2().gety()<<endl;
     
 }
+
 template<> void inputToFile<Triangle>(Triangle temptriangle, ofstream& file)
 {
     string classname;
@@ -222,12 +211,18 @@ template<> void inputToFile<Triangle>(Triangle temptriangle, ofstream& file)
     file<<classname<<" "<<temptriangle.getp1().getx()<<" "<<temptriangle.getp1().gety()<<" "<<temptriangle.getp2().getx()<<" "<<temptriangle.getp2().gety()<<" "<<temptriangle.getp3().getx()<<" "<<temptriangle.getp3().gety()<<endl;
     
 }
+
 template<> void inputToFile<Circle>(Circle tempcircle, ofstream& file)
 {
     string classname;
     classname=typeid(tempcircle).name();
     classname.erase(0,1);
     file<<classname<<" "<<tempcircle.getp().getx()<<" "<<tempcircle.getp().gety()<<" "<<tempcircle.getradius()<<endl;
+    
+}
+
+template<class T>void outputFromFile(Shape* shape, ofstream& file)
+{
     
 }
 

@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/* 
- * File:   Line.cpp
- * Author: nikol
- * 
- * Created on November 17, 2019, 5:52 PM
- */
+//  Assignment 5
+//  Student Name : Ahmed Ali
+//  Student ID   : 40102454
+//  Student Name : Nikolaos Chaskis
+//  Student ID   : 40092571
+//  Line.cpp
 
 #include "Line.h"
 #include <iostream>
