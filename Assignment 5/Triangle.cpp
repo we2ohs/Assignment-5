@@ -59,21 +59,13 @@ Point Triangle::getp3() const
     return p3;
 }
 
-//Overloaded Assignment Operator
-void Triangle::operator=(Triangle a)
-{
-    setp1(a.getp1());
-    setp2(a.getp2());
-    setp3(a.getp3());
-}
-
 //Print Function
 void Triangle::print()
 {
-    cout<<"P1: "<<endl;
-    p1.print();
-    cout<<"P2: "<<endl;
-    p2.print();
-    cout<<"P3: "<<endl;
-    p3.print();
+    cout<<"Triangle Point 1 - "<<endl;
+    p1.print();cout<<endl;
+    cout<<"Triangle Point 2 - "<<endl;
+    p2.print();cout<<endl;
+    cout<<"Triangle Point 3 - "<<endl;
+    p3.print();cout<<endl;
 }

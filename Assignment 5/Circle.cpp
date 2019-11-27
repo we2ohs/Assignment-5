@@ -45,17 +45,11 @@ double Circle::getradius() const
     return radius;
 }
 
-//Overloaded Assignment Operator
-void Circle::operator=(Circle a)
-{
-    setp(a.getp());
-    setradius(a.getradius());
-}
 
 //Print Function
 void Circle::print()
 {
-    cout<<"P: "<<endl;
-    p.print();
-    cout<<"Radius: "<<radius<<endl;
+    cout<<"Circle Point - "<<endl;
+    p.print();cout<<endl;
+    cout<<"Circle Radius: "<<getradius()<<endl;
 }

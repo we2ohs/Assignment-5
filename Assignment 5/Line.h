@@ -30,9 +30,6 @@ public:
     //Get Functions
     Point getp1() const;
     Point getp2() const;
-    
-    //Overloaded Assignment Operator
-    void operator=(Line a);
 
     //Print Function
     void print();

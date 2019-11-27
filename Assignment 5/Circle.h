@@ -31,9 +31,6 @@ public:
     Point getp() const;
     double getradius() const;
     
-    //Overloaded Assignment Operator
-    void operator=(Circle a);
-    
     //Print Function
     void print();
 };

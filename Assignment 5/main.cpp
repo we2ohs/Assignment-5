@@ -5,6 +5,20 @@
 //  Student ID   : 40092571
 //  main.cpp
 
+
+
+/*
+    Notes:
+    1 - The objects created in part (i) in main are only an example, they can be changed for testing purposes
+    2 - We created specialized templates in order to input to files based on the type of shape
+    3 - We created a file with exception handling to input the objects into the files
+    4 - We created an abstract class pointer, intitialized to null
+    5 - We are reading from the file using exception handling to assign the values in the file to the abstract class pointer,
+        depending on the shape classtype
+    6 - The output of the file is printed to the console using virtual print() function (polymorphism)
+ 
+ */
+
 #include "Point.h"
 #include "Line.h"
 #include "Triangle.h"
@@ -15,17 +29,17 @@
 #include <iomanip>
 using namespace std;
 
+
 const size_t MAX_SHAPES=100;
 
-template <class T> void inputToFile(T object, ofstream& file);
-template <> void inputToFile<Point>(Point object, ofstream& file);
-template <> void inputToFile<Line>(Line object, ofstream& file);
-template <> void inputToFile<Triangle>(Triangle object, ofstream& file);
-template <> void inputToFile<Circle>(Circle object, ofstream& file);
+template <class T> void inputToFile(T, ofstream&);
+template <> void inputToFile<Point>(Point, ofstream&);
+template <> void inputToFile<Line>(Line, ofstream&);
+template <> void inputToFile<Triangle>(Triangle, ofstream&);
+template <> void inputToFile<Circle>(Circle , ofstream&);
 
 
-
-int main()
+int main(int argc, char *argv[])
 {
     
     //======================== Part i ========================
@@ -49,24 +63,40 @@ int main()
     
     //======================== Part ii ========================
     
-    //Sequential Access File object
-    ofstream writeToFile;
-    ifstream readFromFile;
-    writeToFile.open("objects.txt");
+    //Sequential Access File objects
+    ofstream writeToFile(argv[1], ios::out|ios::binary);
+    ifstream readFromFile(argv[1], ios::in|ios::binary);
     
-    inputToFile<Point>(p1, writeToFile);
-    inputToFile<Point>(p2, writeToFile);
-    inputToFile<Line>(line, writeToFile);
-    inputToFile<Point>(p3, writeToFile);
-    inputToFile<Triangle>(triangle, writeToFile);
-    inputToFile<Point>(p, writeToFile);
-    inputToFile<Circle>(circle, writeToFile);
-    writeToFile.close();
-    
+    try //Exception handling in case file does not write
+    {
+       writeToFile.open("objects.txt");
+        
+        if(!writeToFile)
+        {
+            throw ios::failure("EXCEPTION - Error Writing to File!"); //Throw Statement
+        }
+        
+        //Using The template function to write the objects to the file
+        inputToFile(p1, writeToFile);
+        inputToFile(p2, writeToFile);
+        inputToFile(line, writeToFile);
+        inputToFile(p3, writeToFile);
+        inputToFile(triangle, writeToFile);
+        inputToFile(p, writeToFile);
+        inputToFile(circle, writeToFile);
+        
+        writeToFile.close();
+    }
+    catch(const exception& e) //Catching the throw statement
+    {
+        cerr<<e.what()<<endl;
+        writeToFile.clear();
+        exit(1);
+    }
     
     
     //======================== Part iii ========================
-    Shape* shape[MAX_SHAPES];
+    Shape* shape[MAX_SHAPES]; //Abstract Base Class Declaration and Intialization
     
     for(int i = 0; i<MAX_SHAPES; i++)
     {
@@ -74,99 +104,116 @@ int main()
     }
     
     //======================== Part iv & v ========================
-    readFromFile.open("objects.txt");
-    string temp[100];
-    double tempNumber[100];
-    
-    for(int j = 0; j<MAX_SHAPES ; j++)
+    try //Exception handling in case file does not write
     {
-        if(shape[j] == nullptr)
+        readFromFile.open("objects.txt");
+        
+        if(!readFromFile)
         {
-            if(!readFromFile.eof())
+            throw ios::failure("EXCEPTION - Error Reading From File!"); //Throw Statement
+        }
+        
+        string temp[100]; //Stores the values of the file
+        double tempNumber[100]; //Store the numbers as per class type
+        
+        //Reading from file, matching Field 1 to type of class
+        for(int j = 0; j<MAX_SHAPES ; j++)
+        {
+            if(shape[j] == nullptr)
             {
-                for(int i = 0; i<100;i++)
+                if(!readFromFile.eof())
                 {
-                    readFromFile>>temp[i];
-                }
-                for(int i = 0; i<100; i++)
-                {
-                    if(temp[i] != "")
+                    for(int i = 0; i<100;i++)
                     {
-                        
-                        if(temp[i]=="Point")
+                        readFromFile>>temp[i];
+                    }
+                    for(int i = 0; i<100; i++)
+                    {
+                        if(temp[i] != "")
                         {
-                            tempNumber[0]=atof(temp[i+1].c_str());
-                            tempNumber[1]=atof(temp[i+2].c_str());
                             
-                            shape[j]= new Point(tempNumber[0],tempNumber[1]);
-                            cout<<"------ Point ------"<<endl;
-                            shape[j]->print();
-                            cout<<endl;
+                            if(temp[i]=="Point") //if first field is Point Class Type
+                            {
+                                //Converting string to double from temp array
+                                tempNumber[0]=atof(temp[i+1].c_str());
+                                tempNumber[1]=atof(temp[i+2].c_str());
+                                
+                                //Creating a shape object of type point
+                                shape[j]= new Point(tempNumber[0],tempNumber[1]);
+                                
+                                //Display Content of Shape Array
+                                cout<<"------ Point ------"<<endl;
+                                shape[j]->print();
+                                cout<<endl;
+                                
+                            }
+                            else if(temp[i]=="Line")//if first field is Line Class Type
+                            {
+                                //Converting string to double from temp array
+                                tempNumber[0]=atof(temp[i+1].c_str());
+                                tempNumber[1]=atof(temp[i+2].c_str());
+                                tempNumber[2]=atof(temp[i+3].c_str());
+                                tempNumber[3]=atof(temp[i+4].c_str());
+                                
+                                //Creating a shape object of type point
+                                shape[j] = new Line(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]));
+                                
+                                //Display Content of Shape Array
+                                cout<<"------ Line ------"<<endl;
+                                shape[j]->print();
+                                cout<<endl;
+                                
+                            }
+                            else if(temp[i]=="Triangle")//if first field is Triangle Class Type
+                            {
+                                //Converting string to double from temp array
+                                tempNumber[0]=atof(temp[i+1].c_str());
+                                tempNumber[1]=atof(temp[i+2].c_str());
+                                tempNumber[2]=atof(temp[i+3].c_str());
+                                tempNumber[3]=atof(temp[i+4].c_str());
+                                tempNumber[4]=atof(temp[i+5].c_str());
+                                tempNumber[5]=atof(temp[i+6].c_str());
+                                
+                                //Creating a shape object of type point
+                                shape[j] = new Triangle(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]),Point(tempNumber[4],tempNumber[5]));
+                                
+                                //Display Content of Shape Array
+                                cout<<"------ Triangle ------"<<endl;
+                                shape[j]->print();
+                                cout<<endl;
+                                
+                            }
+                            else if(temp[i]=="Circle") //if first field is Circle Class Type
+                            {
+                                //Converting string to double from temp array
+                                tempNumber[0]=atof(temp[i+1].c_str());
+                                tempNumber[1]=atof(temp[i+2].c_str());
+                                tempNumber[2]=atof(temp[i+3].c_str());
+                                
+                                //Creating a shape object of type point
+                                shape[j] = new Circle(Point(tempNumber[0],tempNumber[1]),tempNumber[2]);
+                                
+                                //Display Content of Shape Array
+                                cout<<"------ Circle ------"<<endl;
+                                shape[j]->print();
+                                cout<<endl;
+                                
+                            }
                             
                         }
-                        else if(temp[i]=="Line")
-                        {
-                            tempNumber[0]=atof(temp[i+1].c_str());
-                            tempNumber[1]=atof(temp[i+2].c_str());
-                            tempNumber[2]=atof(temp[i+3].c_str());
-                            tempNumber[3]=atof(temp[i+4].c_str());
-                            
-                            shape[j] = new Line(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]));
-                            cout<<"------ Line ------"<<endl;
-                            shape[j]->print();
-                            cout<<endl;
-                            
-                        }
-                        else if(temp[i]=="Triangle")
-                        {
-                            tempNumber[0]=atof(temp[i+1].c_str());
-                            tempNumber[1]=atof(temp[i+2].c_str());
-                            tempNumber[2]=atof(temp[i+3].c_str());
-                            tempNumber[3]=atof(temp[i+4].c_str());
-                            tempNumber[4]=atof(temp[i+5].c_str());
-                            tempNumber[5]=atof(temp[i+6].c_str());
-                            
-                            shape[j] = new Triangle(Point(tempNumber[0],tempNumber[1]),Point(tempNumber[2],tempNumber[3]),Point(tempNumber[4],tempNumber[5]));
-                            cout<<"------ Triangle ------"<<endl;
-                            shape[j]->print();
-                            cout<<endl;
-                            
-                        }
-                        else if(temp[i]=="Circle")
-                        {
-                            tempNumber[0]=atof(temp[i+1].c_str());
-                            tempNumber[1]=atof(temp[i+2].c_str());
-                            tempNumber[2]=atof(temp[i+3].c_str());
-                            
-                            
-                            shape[j] = new Circle(Point(tempNumber[0],tempNumber[1]),tempNumber[2]);
-                            cout<<"------ Circle ------"<<endl;
-                            shape[j]->print();
-                            cout<<endl;
-                            
-                        }
-                        
                     }
                 }
             }
         }
+        readFromFile.close();
     }
-    
-    
-    
-    readFromFile.close();
-    
-    /* cout<<"EXCEPTION : "<<error.what()<<endl;
-     cout<<"File could not be created/read/written"<<endl;
-     writeToFile.clear();
-     readFromFile.clear();
-     exit(1);*/
-    
-    
-    
-    
-    
-    
+    catch(const exception& e)
+    {
+        cerr<<e.what()<<endl;
+        writeToFile.clear();
+        exit(1);
+    }
+
     
     return 0;
 }
@@ -221,9 +268,8 @@ template<> void inputToFile<Circle>(Circle tempcircle, ofstream& file)
     
 }
 
-template<class T>void outputFromFile(Shape* shape, ofstream& file)
-{
-    
-}
+
+
+
 
 
