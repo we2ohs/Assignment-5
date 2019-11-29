@@ -64,16 +64,16 @@ int main(int argc, char *argv[])
     //======================== Part ii ========================
     
     //Sequential Access File objects
-    ofstream writeToFile(argv[1], ios::out|ios::binary);
-    ifstream readFromFile(argv[1], ios::in|ios::binary);
+    ofstream writeToFile;
+    ifstream readFromFile;
     
     try //Exception handling in case file does not write
     {
        writeToFile.open("objects.txt");
         
-        if(!writeToFile)
+        if(!writeToFile.is_open())
         {
-            throw ios::failure("EXCEPTION - Error Writing to File!"); //Throw Statement
+            throw "EXCEPTION 1 - Error Writing to File!"; //Throw Statement
         }
         
         //Using The template function to write the objects to the file
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
         
         writeToFile.close();
     }
-    catch(const exception& e) //Catching the throw statement
+    catch(char const* e) //Catching the throw statement
     {
-        cerr<<e.what()<<endl;
+        cout<<e<<endl;
         writeToFile.clear();
         exit(1);
     }
@@ -106,11 +106,11 @@ int main(int argc, char *argv[])
     //======================== Part iv & v ========================
     try //Exception handling in case file does not write
     {
-        readFromFile.open("objects.txt");
+        //readFromFile.open("objects.txt");
         
-        if(!readFromFile)
+        if(!readFromFile.is_open())
         {
-            throw ios::failure("EXCEPTION - Error Reading From File!"); //Throw Statement
+            throw "EXCEPTION 2 - Error Reading From File!"; //Throw Statement
         }
         
         string temp[100]; //Stores the values of the file
@@ -207,9 +207,9 @@ int main(int argc, char *argv[])
         }
         readFromFile.close();
     }
-    catch(const exception& e)
+    catch(char const* e)
     {
-        cerr<<e.what()<<endl;
+        cout<<e<<endl;
         writeToFile.clear();
         exit(1);
     }
